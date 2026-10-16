@@ -1,0 +1,27 @@
+device: cuda
+data:
+  celeba_root: ../../datasets/celeba/extracted/celeba
+  lfw_root: ../../datasets/lfw
+  max_images: 3000
+model:
+  image_size: 112
+  lr_scale: 4
+  emb_dim: 128
+train:
+  protocol: smoke
+  seed: 42
+  batch_size: 32
+  num_workers: 2
+  epochs: 1
+  lr: 0.0001
+  margin: 2.0
+eval:
+  max_ids: 50
+  probes_per_id: 2
+  max_lfw_pairs: 600
+  batch_size: 64
+paths:
+  checkpoint_dir: outputs/checkpoints/smoke
+  log_dir: outputs/logs/smoke
+  figure_dir: outputs/figures/smoke
+  pred_dir: outputs/predictions/smoke
