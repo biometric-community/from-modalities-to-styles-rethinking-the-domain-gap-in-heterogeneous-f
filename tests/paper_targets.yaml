@@ -1,0 +1,14 @@
+# Published values from George & Marcel, "From Modalities to Styles: Rethinking the
+# Domain Gap in Heterogeneous Face Recognition", IEEE TBIOM 2024, arXiv:2404.14247.
+source: arXiv:2404.14247
+tolerance_pp: 1.0
+
+# Table 4, SCFace, far protocol: the closest published setting to cross-resolution.
+scface_far:
+  baseline_rank1: 74.42
+  caim_rank1: 86.05
+
+# Sec. 4.1.
+training:
+  margin: 2.0
+  lr: 0.0001
