@@ -11,13 +11,12 @@ from torchvision import models
 class CAIM(nn.Module):
     """Conditional Adaptive Instance Modulation (paper Sec. III; compact form).
 
-    y = x + g * (AdaIN(x; style) - x), with g learned; for source modality g→0.
+    Eq. (10): CAIM(F, g) = g * AIM(F) + F, with g = 1 for target and g = 0 for source.
     """
 
     def __init__(self, channels: int, style_dim: int = 128):
         super().__init__()
         self.fc = nn.Linear(style_dim, channels * 2)
-        self.gate = nn.Parameter(torch.zeros(1))
 
     def forward(self, x: torch.Tensor, style: torch.Tensor, enable: bool) -> torch.Tensor:
         if not enable:
@@ -31,8 +30,7 @@ class CAIM(nn.Module):
         gamma = gamma.unsqueeze(-1).unsqueeze(-1)
         beta = beta.unsqueeze(-1).unsqueeze(-1)
         adain = x_n * (1 + gamma) + beta
-        g = torch.sigmoid(self.gate)
-        return x + g * (adain - x)
+        return adain + x
 
 
 class CAIMFaceNet(nn.Module):
